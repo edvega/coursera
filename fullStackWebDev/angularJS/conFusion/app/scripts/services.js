@@ -6,7 +6,7 @@ angular.module('confusionApp')
     
             this.getDishes = function(){
 
-                return $resource(baseURL + "dishes/:id", null, {'update':{method:'PUT'}});
+                return $resource(baseURL + "dishes/:id");
             };
 
             // implement a function named getPromotion
@@ -14,7 +14,7 @@ angular.module('confusionApp')
             this.getPromotion = function() {
 
                 //return promotions[index];
-                return $resource(baseURL + "promotions/:id", null, {'update':{method:'PUT'}});
+                return $resource(baseURL + "promotions/:id");
             };
                         
         }])
@@ -29,13 +29,13 @@ angular.module('confusionApp')
             corpfac.getLeaders = function() {
                 
                 //return leadership;
-                return $resource(baseURL + "leadership/:id", null, {'update':{method:'PUT'}});
+                return $resource(baseURL + "leadership/:id");
             };
     
             corpfac.getLeader = function() {
                 
                 //return leadership[index];
-                return $resource(baseURL + "leadership/:id", null, {'update':{method:'PUT'}, isArray:true});
+                return $resource(baseURL + "leadership/:id");
             };
     
             return corpfac;
