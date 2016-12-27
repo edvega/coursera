@@ -1,0 +1,18 @@
+#Ignore files for all courses
+
+#bootstrap
+bootstrap/week*
+bootstrap/conFusion/bower_components/*
+
+#angularJS
+angularJS/conFusion/app/fonts/*
+angularJS/conFusion/app/images/*
+angularJS/conFusion/app/styles/*
+angularJS/conFusion/dist/*
+angularJS/conFusion/bower_components/*
+angularJS/conFusion/node_modules/*
+angularJS/conFusion/.tmp/*
+angularJS/week*
+
+#ionic
+ionic_framework/week*
