@@ -6,16 +6,12 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <form id="commentForm" name="commentForm" ng-submit="submitComment()">
+    <form id="commentForm" name="commentForm" ng-submit="submitComment(commentForm)">
       <div class="list">
         <label class="item item-input item-select">
           <span class="input-label">Rating</span>
           <select ng-model="mycomment.rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option ng-repeat="n in [1,2,3,4,5]" value="{{n}}">{{n}}</option>
           </select>
         </label>
         <label class="item item-input">

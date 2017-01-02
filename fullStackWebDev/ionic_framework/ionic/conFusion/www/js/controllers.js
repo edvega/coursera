@@ -185,6 +185,10 @@ angular.module('conFusion.controllers', [])
         $scope.popover.hide();
     };
     
+    $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+    });
+    
     $scope.addFavorite = function() {
         console.log("index is " + parseInt($stateParams.id,10));
         favoriteFactory.addToFavorites(parseInt($stateParams.id,10));
@@ -203,23 +207,30 @@ angular.module('conFusion.controllers', [])
 
     $scope.showCommentModal = function() {
         $scope.closePopover();
-        $timeout(function() {
-            $scope.modal.show();
-        }, 0);
+        $scope.modal.show();
     };
+    
+    $scope.$on('modal.hidden', function() {
+        $scope.closePopover();
+    });
+    
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
     
     $scope.mycomment = {rating:5, comment:"", author:"", date:""};
     
-    $scope.submitComment = function () {
+    $scope.submitComment = function (commentForm) {
+        if(commentForm.$valid) {
+            $scope.mycomment.date = new Date().toISOString();
+            console.log($scope.mycomment);
 
-        $scope.mycomment.date = new Date().toISOString();
-        console.log($scope.mycomment);
+            $scope.dish.comments.push($scope.mycomment);
+            menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
 
-        $scope.dish.comments.push($scope.mycomment);
-        menuFactory.getDishes().update({id:$scope.dish.id},$scope.dish);
-
-        $scope.mycomment = {rating:5, comment:"", author:"", date:""};
-        $scope.closeCommentModal();
+            $scope.mycomment = {rating:5, comment:"", author:"", date:""};
+            $scope.closeCommentModal();   
+        }
     }
 }])
 
