@@ -2,7 +2,7 @@
   <ion-header-bar>
     <h1 class="title">Register</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeRegister()">Close</button>
+      <button class="button button-clear button-stable" ng-click="closeRegister()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -12,12 +12,17 @@
        <span class="input-label">Your Picture</span>
        </label>
        <label class="item item-input">
-       <img class="padding" ng-src="{{registration.imgSrc}}">
+        <img class="padding" ng-src="{{registration.imgSrc}}">
        </label>
        <label class="item item-input">
-       <button class="button button-block button-positive" type="button" ng-click="takePicture()">
-            Take Picture
-        </button>
+            <button class="button button-block button-positive" type="button" ng-click="takePicture()">
+                Take Picture
+            </button>
+        </label>
+        <label class="item item-input">
+            <button class="button button-block button-balanced" color="secondary" type="button" ng-click="openGallery()">
+                Gallery
+            </button>
         </label>
         <label class="item item-input">
           <span class="input-label">First Name</span>
