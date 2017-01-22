@@ -134,6 +134,8 @@ angular.module('conFusion.controllers', [])
             }, function(error) {
               console.log(error);
             });
+            
+            $scope.registerform.show();
         };
     });
 })
