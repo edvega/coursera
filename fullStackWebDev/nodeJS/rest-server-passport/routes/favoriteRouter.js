@@ -10,7 +10,7 @@ var Verify = require('./verify');
 
 favoriteRouter.route('/')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.findOne({postedBy: req.decoded._doc._id})
+    Favorites.findOne({postedBy: req.decoded._id})
         .populate('postedBy')
         .populate('dishes')
         .exec(function (err, favorite) {
@@ -20,7 +20,7 @@ favoriteRouter.route('/')
 })
 
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.findOne({ postedBy: req.decoded._doc._id }, function (err, favorite) {
+    Favorites.findOne({ postedBy: req.decoded._id }, function (err, favorite) {
         if (err) throw err;
         if (favorite) {
             if (favorite.dishes.indexOf(req.body._id) === -1) {
@@ -32,7 +32,7 @@ favoriteRouter.route('/')
             }
             res.json(favorite);
         } else {
-            Favorites.create({postedBy: req.decoded._doc._id,
+            Favorites.create({postedBy: req.decoded._id,
                 dishes: req.body._id}, function (err, favorite) {
                 console.log(favorite);
                 if (err) throw err;
@@ -43,7 +43,7 @@ favoriteRouter.route('/')
 })
 
 .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.remove({ postedBy: req.decoded._doc._id }, function (err, resp) {
+    Favorites.remove({ postedBy: req.decoded._id }, function (err, resp) {
         if (err) throw err;
         res.json(resp);
     });
@@ -51,7 +51,7 @@ favoriteRouter.route('/')
 
 favoriteRouter.route('/:dishId')
 .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.findOne({postedBy: req.decoded._doc._id}, function (err, favorite) {
+    Favorites.findOne({postedBy: req.decoded._id}, function (err, favorite) {
         if (err) throw err;
         if (favorite) {
             var i = favorite.dishes.indexOf(req.params.dishId);

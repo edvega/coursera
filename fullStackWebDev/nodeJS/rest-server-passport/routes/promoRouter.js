@@ -9,16 +9,16 @@ promoRouter.use(bodyParser.json());
 var Verify = require('./verify');
 
 promoRouter.route('/')
-.get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Promotions.find({}, function (err, promo) {
-        if (err) throw err;
+.get(function (req, res, next) {
+    Promotions.find(req.query, function (err, promo) {
+        if (err) next(err);
         res.json(promo);
     });
 })
 
 .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.create(req.body, function (err, promo) {
-        if (err) throw err;
+        if (err) next(err);
         console.log('Promotion created!');
         var id = promo._id;
 
@@ -31,15 +31,15 @@ promoRouter.route('/')
 
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.remove({}, function (err, resp) {
-        if (err) throw err;
+        if (err) next(err);
         res.json(resp);
     });
 });
 
 promoRouter.route('/:promoId')
-.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+.get(function (req, res, next) {
     Promotions.findById(req.params.promoId, function (err, promo) {
-        if (err) throw err;
+        if (err) next(err);
         res.json(promo);
     });
 })
@@ -50,14 +50,14 @@ promoRouter.route('/:promoId')
     }, {
         new: true
     }, function (err, promo) {
-        if (err) throw err;
+        if (err) next(err);
         res.json(promo);
     });
 })
 
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Promotions.findByIdAndRemove(req.params.promoId, function (err, resp) {        
-        if (err) throw err;
+        if (err) next(err);
         res.json(resp);
     });
 });
